@@ -51,8 +51,11 @@ const Starmatch = () => {
                 />
                 <NumberDisplay
                     stars={stars}
+                    setStars={setStars}
                     range={utils.range}
                     sum={utils.sum}
+                    randomSumIn={utils.randomSumIn}
+                    
                 />
             </div>
             <div className="timer">Time Remaining: 10</div>

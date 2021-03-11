@@ -12,8 +12,8 @@ const NumberDisplay = props => {
         candidate: 'deepskyblue',
         };
 
-    const [availableNums, setAvailableNums] = useState([1, 2, 3, 4, 5]);
-    const [candidateNums, setCandidateNums] = useState([2, 3]);
+    const [availableNums, setAvailableNums] = useState(props.range(1,9));
+    const [candidateNums, setCandidateNums] = useState([]);
 
     const candidatesAreWrong = props.sum(candidateNums) > props.stars;
 
@@ -26,6 +26,23 @@ const NumberDisplay = props => {
         }
         return 'available';
     };
+        
+    const onNumberClick = (number, currentStatus) => {
+        if (currentStatus === 'used') {
+            return;
+        } 
+        const newCandidateNums = candidateNums.concat(number);
+        if (props.sum(newCandidateNums) !== props.stars) {
+            setCandidateNums(newCandidateNums);
+        } else {
+            const newAvailableNums = availableNums.filter(
+                n => !newCandidateNums.includes(n)
+            );
+            props.setStars(props.randomSumIn(newAvailableNums, 9));
+            setAvailableNums(newAvailableNums);
+            setCandidateNums([]);
+        }
+    }
 
     return (
     <div className="right">
@@ -34,6 +51,7 @@ const NumberDisplay = props => {
         key={number} 
         number={number} 
         status={numberStatus(number)}
+        onClick={onNumberClick}
         color={colors}
         /> )}
   </div>
