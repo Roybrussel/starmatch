@@ -6,14 +6,6 @@ import NumberDisplay from '../NumberDisplay/NumberDisplay';
 import './Starmatch.scss';
 
 const Starmatch = () => {
-
-        // // Color Theme
-        // const colors = {
-        //     available: 'lightgray',
-        //     used: 'lightgreen',
-        //     wrong: 'lightcoral',
-        //     candidate: 'deepskyblue',
-        // };
   
         // Math science
         const utils = {
@@ -58,9 +50,10 @@ const Starmatch = () => {
                     range={utils.range}
                 />
                 <NumberDisplay
-                     
-                    range={utils.range}/>
-
+                    stars={stars}
+                    range={utils.range}
+                    sum={utils.sum}
+                />
             </div>
             <div className="timer">Time Remaining: 10</div>
           </div>
