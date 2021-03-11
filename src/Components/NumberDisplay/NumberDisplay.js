@@ -31,7 +31,12 @@ const NumberDisplay = props => {
         if (currentStatus === 'used') {
             return;
         } 
-        const newCandidateNums = candidateNums.concat(number);
+        const newCandidateNums = 
+            currentStatus === 'available'
+            ? candidateNums.concat(number)
+            : candidateNums.filter(cn => cn !== number);
+        
+        candidateNums.concat(number);
         if (props.sum(newCandidateNums) !== props.stars) {
             setCandidateNums(newCandidateNums);
         } else {
