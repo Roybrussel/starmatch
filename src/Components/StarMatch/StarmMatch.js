@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 
+import StarDisplay from '../StarDisplay/StarDisplay';
+import NumberDisplay from '../NumberDisplay/NumberDisplay';
+
 import './Starmatch.scss';
 
 const Starmatch = () => {
@@ -50,14 +53,14 @@ const Starmatch = () => {
               Pick 1 or more numbers that sum to the number of stars
             </div>
             <div className="body">
-              <div className="left">
-                {utils.range(1, stars).map(starId => 
-                    <div key={starId} className="star" />)}
-              </div>
-              <div className="right">
-                {utils.range(1, 9).map(number => 
-                <button key={number} className="number">{number}</button>)}
-              </div>
+                <StarDisplay 
+                    stars={stars}
+                    range={utils.range}
+                />
+                <NumberDisplay
+                     
+                    range={utils.range}/>
+
             </div>
             <div className="timer">Time Remaining: 10</div>
           </div>
