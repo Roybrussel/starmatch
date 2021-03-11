@@ -4,18 +4,18 @@ import PlayNumber from '../PlayNumber/PlayNumber';
 
 const NumberDisplay = props => {
 
-    // Color Theme
+    const [availableNums, setAvailableNums] = useState(props.range(1,9));
+    const [candidateNums, setCandidateNums] = useState([]);
+
+    const candidatesAreWrong = props.sum(candidateNums) > props.stars;
+    // const gameIsDone = availableNums.length === 0;
+
     const colors = {
         available: 'lightgray',
         used: 'lightgreen',
         wrong: 'lightcoral',
         candidate: 'deepskyblue',
         };
-
-    const [availableNums, setAvailableNums] = useState(props.range(1,9));
-    const [candidateNums, setCandidateNums] = useState([]);
-
-    const candidatesAreWrong = props.sum(candidateNums) > props.stars;
 
     const numberStatus = (number) => {
         if (!availableNums.includes(number)) {
