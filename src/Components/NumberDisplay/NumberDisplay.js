@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 
 import PlayNumber from '../PlayNumber/PlayNumber';
+import PlayAgain from '../PlayAgain/PlayAgain';
 
 const NumberDisplay = props => {
 
@@ -8,7 +9,7 @@ const NumberDisplay = props => {
     const [candidateNums, setCandidateNums] = useState([]);
 
     const candidatesAreWrong = props.sum(candidateNums) > props.stars;
-    // const gameIsDone = availableNums.length === 0;
+    const gameIsDone = availableNums.length === 0;
 
     const colors = {
         available: 'lightgray',
@@ -51,16 +52,17 @@ const NumberDisplay = props => {
 
     return (
     <div className="right">
-    {props.range(1, 9).map(number => 
-    <PlayNumber 
-        key={number} 
-        number={number} 
-        status={numberStatus(number)}
-        onClick={onNumberClick}
-        color={colors}
-        /> )}
-  </div>
-    )
-}
-
+        {gameIsDone
+            ? <PlayAgain />
+            : props.range(1, 9).map(number => 
+                <PlayNumber 
+                    key={number} 
+                    number={number} 
+                    status={numberStatus(number)}
+                    onClick={onNumberClick}
+                    color={colors}
+                    /> )}
+    </div>
+    )}
+    
 export default NumberDisplay;
