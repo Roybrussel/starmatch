@@ -15,7 +15,7 @@ const NumberDisplay = props => {
     };
         
     const onNumberClick = (number, currentStatus) => {
-        if (currentStatus === 'used') {
+        if (props.gameStatus !== 'active' || currentStatus === 'used') {
             return;
         } 
         const newCandidateNums = 
