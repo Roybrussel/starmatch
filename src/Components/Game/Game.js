@@ -3,9 +3,9 @@ import React, { useState, useEffect } from 'react';
 import StarDisplay from '../StarDisplay/StarDisplay';
 import NumberDisplay from '../NumberDisplay/NumberDisplay';
 
-import './Starmatch.scss';
+import './Game.scss';
 
-const Starmatch = () => {
+const Game = props => {
 
     const colors = {
         available: 'lightgray',
@@ -62,12 +62,6 @@ const Starmatch = () => {
         const gameStatus = availableNums.length === 0
             ? 'won'
             : secondsLeft === 0 ? 'lost' : 'active'
-    
-        const resetGame = () => {
-         setStars(utils.random(1, 9));
-         setAvailableNums(utils.range(1, 9));
-         setCandidateNums([]);
-     }
 
         return (
             <div className="game">
@@ -79,7 +73,7 @@ const Starmatch = () => {
                     stars={stars}
                     range={utils.range}
                     gameStatus={gameStatus}
-                    resetGame={resetGame}
+                    startNewGame={props.startNewGame}
                     color={colors}
                 />
                 <NumberDisplay
@@ -103,4 +97,4 @@ const Starmatch = () => {
         )
     }
 
-    export default Starmatch;
+    export default Game;

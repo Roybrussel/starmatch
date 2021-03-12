@@ -1,4 +1,4 @@
-import Starmatch from './Components/Starmatch/Starmmatch';
+import Starmatch from './Components/Starmatch/Starmatch';
 
 import './App.css';
 

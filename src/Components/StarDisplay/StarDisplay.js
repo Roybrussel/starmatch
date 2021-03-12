@@ -7,8 +7,9 @@ const StarDisplay = props => (
     <div className="left">
               {props.gameStatus !== 'active' ? (
                 <PlayAgain 
-                  onClick={props.resetGame}
-                  gameStatus={props.gameStatus} />
+                  startNewGame={props.startNewGame}
+                  gameStatus={props.gameStatus}
+                />
               ) : (
                 props.range(1, props.stars).map(starId => 
                 <Star key={starId} />)
