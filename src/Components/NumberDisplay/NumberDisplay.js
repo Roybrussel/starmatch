@@ -4,13 +4,6 @@ import PlayNumber from '../PlayNumber/PlayNumber';
 
 const NumberDisplay = props => {
 
-    const colors = {
-        available: 'lightgray',
-        used: 'lightgreen',
-        wrong: 'lightcoral',
-        candidate: 'deepskyblue',
-        };
-
     const numberStatus = (number) => {
         if (!props.availableNums.includes(number)) {
             return 'used';
@@ -51,7 +44,7 @@ const NumberDisplay = props => {
                     number={number} 
                     status={numberStatus(number)}
                     onClick={onNumberClick}
-                    color={colors}
+                    color={props.color}
                 /> )}
     </div>
     )}

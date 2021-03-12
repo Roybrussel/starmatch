@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import StarDisplay from '../StarDisplay/StarDisplay';
 import NumberDisplay from '../NumberDisplay/NumberDisplay';
@@ -6,6 +6,13 @@ import NumberDisplay from '../NumberDisplay/NumberDisplay';
 import './Starmatch.scss';
 
 const Starmatch = () => {
+
+    const colors = {
+        available: 'lightgray',
+        used: 'lightgreen',
+        wrong: 'lightcoral',
+        candidate: 'deepskyblue',
+        };
   
         // Math science
         const utils = {
@@ -39,11 +46,22 @@ const Starmatch = () => {
 
         const [availableNums, setAvailableNums] = useState(utils.range(1,9));
         const [candidateNums, setCandidateNums] = useState([]);
-
         const [stars, setStars] = useState(utils.random(1,9));
+        const [secondsLeft, setSecondsLeft] = useState(10);
+
+        useEffect(() => {
+            if (secondsLeft > 0) {
+               const timerId = setTimeout(() => {
+                    setSecondsLeft(secondsLeft - 1);
+                }, 1000);
+                return () => clearTimeout(timerId);
+            }
+        })
     
         const candidatesAreWrong = utils.sum(candidateNums) > stars;
-        const gameIsDone = availableNums.length === 0;
+        const gameStatus = availableNums.length === 0
+            ? 'won'
+            : secondsLeft === 0 ? 'lost' : 'active'
     
         const resetGame = () => {
          setStars(utils.random(1, 9));
@@ -60,14 +78,16 @@ const Starmatch = () => {
                 <StarDisplay 
                     stars={stars}
                     range={utils.range}
-                    gameIsDone={gameIsDone}
+                    gameStatus={gameStatus}
                     resetGame={resetGame}
+                    color={colors}
                 />
                 <NumberDisplay
                     stars={stars}
                     setStars={setStars}
                     range={utils.range}
                     sum={utils.sum}
+                    color={colors}
                     randomSumIn={utils.randomSumIn}
                     candidatesAreWrong={candidatesAreWrong}
                     availableNums={availableNums}
@@ -77,7 +97,7 @@ const Starmatch = () => {
                     
                 />
             </div>
-            <div className="timer">Time Remaining: 10</div>
+            <div className="timer">Time Remaining: {secondsLeft}</div>
           </div>
         )
     }

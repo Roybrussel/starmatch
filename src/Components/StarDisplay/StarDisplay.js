@@ -5,12 +5,14 @@ import PlayAgain from '../PlayAgain/PlayAgain';
 
 const StarDisplay = props => (
     <div className="left">
-              {props.gameIsDone
-            ? <PlayAgain 
-                onClick={props.resetGame}
-            />
-            :props.range(1, props.stars).map(starId => 
-    <Star key={starId} />)}
+              {props.gameStatus !== 'active' ? (
+                <PlayAgain 
+                  onClick={props.resetGame}
+                  gameStatus={props.gameStatus} />
+              ) : (
+                props.range(1, props.stars).map(starId => 
+                <Star key={starId} />)
+            )}
   </div>
 )
 
