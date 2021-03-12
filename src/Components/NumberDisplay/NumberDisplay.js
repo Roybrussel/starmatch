@@ -1,15 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 import PlayNumber from '../PlayNumber/PlayNumber';
-import PlayAgain from '../PlayAgain/PlayAgain';
 
 const NumberDisplay = props => {
-
-    const [availableNums, setAvailableNums] = useState(props.range(1,9));
-    const [candidateNums, setCandidateNums] = useState([]);
-
-    const candidatesAreWrong = props.sum(candidateNums) > props.stars;
-    const gameIsDone = availableNums.length === 0;
 
     const colors = {
         available: 'lightgray',
@@ -19,11 +12,11 @@ const NumberDisplay = props => {
         };
 
     const numberStatus = (number) => {
-        if (!availableNums.includes(number)) {
+        if (!props.availableNums.includes(number)) {
             return 'used';
         }
-        if (candidateNums.includes(number)) {
-            return candidatesAreWrong ? 'wrong': 'candidate';
+        if (props.candidateNums.includes(number)) {
+            return props.candidatesAreWrong ? 'wrong': 'candidate';
         }
         return 'available';
     };
@@ -34,34 +27,32 @@ const NumberDisplay = props => {
         } 
         const newCandidateNums = 
             currentStatus === 'available'
-            ? candidateNums.concat(number)
-            : candidateNums.filter(cn => cn !== number);
+            ? props.candidateNums.concat(number)
+            : props.candidateNums.filter(cn => cn !== number);
         
-        candidateNums.concat(number);
+        props.candidateNums.concat(number);
         if (props.sum(newCandidateNums) !== props.stars) {
-            setCandidateNums(newCandidateNums);
+            props.setCandidateNums(newCandidateNums);
         } else {
-            const newAvailableNums = availableNums.filter(
+            const newAvailableNums = props.availableNums.filter(
                 n => !newCandidateNums.includes(n)
             );
             props.setStars(props.randomSumIn(newAvailableNums, 9));
-            setAvailableNums(newAvailableNums);
-            setCandidateNums([]);
+            props.setAvailableNums(newAvailableNums);
+            props.setCandidateNums([]);
         }
     }
 
     return (
     <div className="right">
-        {gameIsDone
-            ? <PlayAgain />
-            : props.range(1, 9).map(number => 
+           {props.range(1, 9).map(number => 
                 <PlayNumber 
                     key={number} 
                     number={number} 
                     status={numberStatus(number)}
                     onClick={onNumberClick}
                     color={colors}
-                    /> )}
+                /> )}
     </div>
     )}
     

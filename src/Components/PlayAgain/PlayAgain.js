@@ -1,8 +1,8 @@
 import React from 'react';
 
-const PlayAgain = prop => (
+const PlayAgain = props => (
     <div className="game-done">
-        <button>Play Again</button>
+        <button onClick={props.onClick}>Play Again</button>
     </div>
 )
 

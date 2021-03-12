@@ -37,7 +37,19 @@ const Starmatch = () => {
             },
         };
 
+        const [availableNums, setAvailableNums] = useState(utils.range(1,9));
+        const [candidateNums, setCandidateNums] = useState([]);
+
         const [stars, setStars] = useState(utils.random(1,9));
+    
+        const candidatesAreWrong = utils.sum(candidateNums) > stars;
+        const gameIsDone = availableNums.length === 0;
+    
+        const resetGame = () => {
+         setStars(utils.random(1, 9));
+         setAvailableNums(utils.range(1, 9));
+         setCandidateNums([]);
+     }
 
         return (
             <div className="game">
@@ -48,6 +60,8 @@ const Starmatch = () => {
                 <StarDisplay 
                     stars={stars}
                     range={utils.range}
+                    gameIsDone={gameIsDone}
+                    resetGame={resetGame}
                 />
                 <NumberDisplay
                     stars={stars}
@@ -55,6 +69,11 @@ const Starmatch = () => {
                     range={utils.range}
                     sum={utils.sum}
                     randomSumIn={utils.randomSumIn}
+                    candidatesAreWrong={candidatesAreWrong}
+                    availableNums={availableNums}
+                    setAvailableNums={setAvailableNums}
+                    candidateNums={candidateNums}
+                    setCandidateNums={setCandidateNums}
                     
                 />
             </div>
